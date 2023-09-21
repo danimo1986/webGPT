@@ -56,13 +56,13 @@ def main():
     if st.button("Submit"):
         if user_input.strip() != "":
             # Add user input to chat history
-            chat_history.append({"role": "user", "content": user_input})
+            chat_history.append(f"User: {user_input}")
 
             # Get the response from the chatbot
             response = agent.run({'input': user_input, 'chat_history': chat_history})
 
             # Add chatbot's response to chat history
-            chat_history.append({"role": "chatbot", "content": response['output']})
+            chat_history.append(f"Chatbot: {response['output']}")
 
             # Display the chatbot's response
             st.write("Chatbot Response:")
