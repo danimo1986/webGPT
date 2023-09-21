@@ -9,6 +9,10 @@ from langchain.tools import DuckDuckGoSearchTool
 # !pip install openai==0.27.8
 # !pip install duckduckgo-search==3.8.3
 
+# Initialize chat history using a session_state variable
+if 'history' not in st.session_state:
+    st.session_state['history'] = []
+
 # Create Streamlit app
 def main():
     # Page title
@@ -47,24 +51,20 @@ def main():
         verbose=True
     )
 
-    # Initialize chat history using a session_state variable
-    if 'history' not in st.session_state:
-        st.session_state['history'] = []
-
     # User input text box
     user_input = st.text_area("User Input:", "")
 
     if st.button("Submit"):
         if user_input.strip() != "":
             # Get the response from the chatbot using conversational_chat function
-            response = conversational_chat(user_input)
+            response = conversational_chat(agent, user_input)
 
             # Display the chatbot's response
             st.write("Chatbot Response:")
             st.write(f"Chatbot: {response}")
 
 # Define conversational_chat function
-def conversational_chat(query):
+def conversational_chat(agent, query):
     result = agent.run({'input': query, 'chat_history': st.session_state['history']})
     st.session_state['history'].append((query, result))
     return result
