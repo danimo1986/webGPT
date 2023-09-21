@@ -54,6 +54,10 @@ def main():
     # User input text box
     user_input = st.text_area("User Input:", "")
 
+    # Chat history reset button in the sidebar
+    if st.sidebar.button("Reset Chat History"):
+        reset_chat_history()
+
     if st.button("Submit"):
         if user_input.strip() != "":
             # Get the response from the chatbot using conversational_chat function
@@ -68,6 +72,10 @@ def conversational_chat(agent, query):
     result = agent.run({'input': query, 'chat_history': st.session_state['history']})
     st.session_state['history'].append((query, result))
     return result
+
+# Define chat history reset function
+def reset_chat_history():
+    st.session_state['history'] = []
 
 if __name__ == "__main__":
     main()
