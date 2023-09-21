@@ -47,26 +47,27 @@ def main():
         verbose=True
     )
 
-    # Initialize chat history
-    chat_history = []
+    # Initialize chat history using a session_state variable
+    if 'history' not in st.session_state:
+        st.session_state['history'] = []
 
     # User input text box
     user_input = st.text_area("User Input:", "")
 
     if st.button("Submit"):
         if user_input.strip() != "":
-            # Add user input to chat history
-            chat_history.append(f"User: {user_input}")
-
-            # Get the response from the chatbot
-            response = agent.run({'input': user_input, 'chat_history': chat_history})
-
-            # Add chatbot's response to chat history
-            chat_history.append(f"Chatbot: {response['output']}")
+            # Get the response from the chatbot using conversational_chat function
+            response = conversational_chat(user_input)
 
             # Display the chatbot's response
             st.write("Chatbot Response:")
-            st.write(f"Chatbot: {response['output']}")
+            st.write(f"Chatbot: {response}")
+
+# Define conversational_chat function
+def conversational_chat(query):
+    result = agent.run({'input': query, 'chat_history': st.session_state['history']})
+    st.session_state['history'].append((query, result))
+    return result
 
 if __name__ == "__main__":
     main()
