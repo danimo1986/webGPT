@@ -53,14 +53,14 @@ def main():
     if st.button("Submit"):
         if user_input.strip() != "":
             # Initialize the chat history if it doesn't exist
-            if 'chat_history' not in agent.state:
-                agent.state['chat_history'] = []
+            if 'chat_history' not in agent:
+                agent['chat_history'] = []
 
             # Add the user input to the chat history
-            agent.state['chat_history'].append({"role": "user", "content": user_input})
+            agent['chat_history'].append({"role": "user", "content": user_input})
 
             # Get the response from the chatbot
-            response = agent.run(agent.state)
+            response = agent.run({'input': user_input, 'chat_history': agent['chat_history']})
 
             # Display the chatbot's response
             st.write("Chatbot Response:")
