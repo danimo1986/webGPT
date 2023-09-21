@@ -6,9 +6,9 @@ from langchain.memory import ConversationBufferMemory
 from langchain.tools import DuckDuckGoSearchTool
 
 # Install required packages
-#!pip install langchain==0.0.149
-#!pip install openai==0.27.8
-#!pip install duckduckgo-search==3.8.3
+# !pip install langchain==0.0.149
+# !pip install openai==0.27.8
+# !pip install duckduckgo-search==3.8.3
 
 # Create Streamlit app
 def main():
@@ -57,7 +57,7 @@ def main():
     if st.button("Submit"):
         if user_input.strip() != "":
             # Add user input to the conversation history
-            agent.add_message("user", user_input)
+            agent.memory.add_message("user", user_input)
 
             # Get the response from the chatbot
             response = agent.generate_output()
