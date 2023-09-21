@@ -5,7 +5,6 @@ from langchain.agents import load_tools, initialize_agent, AgentType, Tool
 from langchain.memory import ConversationBufferMemory
 from langchain.tools import DuckDuckGoSearchTool
 
-
 # Install required packages
 #!pip install langchain==0.0.149
 #!pip install openai==0.27.8
@@ -58,7 +57,7 @@ def main():
     if st.button("Submit"):
         if user_input.strip() != "":
             # Add user input to the conversation history
-            agent.receive_input(user_input)
+            agent.add_message("user", user_input)
 
             # Get the response from the chatbot
             response = agent.generate_output()
