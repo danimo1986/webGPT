@@ -1,0 +1,15 @@
+langchain==0.0.149
+duckduckgo-search==3.8.3
+streamlit
+pandas
+numpy
+torch
+sentence-transformers
+python-dotenv
+tabulate
+chromadb
+tiktoken
+pysqlite3-binary
+PyPDF2
+matplotlib
+plotly
