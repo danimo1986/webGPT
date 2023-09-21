@@ -47,13 +47,22 @@ def main():
         verbose=True
     )
 
+    # Initialize chat history
+    chat_history = []
+
     # User input text box
     user_input = st.text_area("User Input:", "")
 
     if st.button("Submit"):
         if user_input.strip() != "":
+            # Add user input to chat history
+            chat_history.append({"role": "user", "content": user_input})
+
             # Get the response from the chatbot
-            response = agent.run({'input': user_input})
+            response = agent.run({'input': user_input, 'chat_history': chat_history})
+
+            # Add chatbot's response to chat history
+            chat_history.append({"role": "chatbot", "content": response['output']})
 
             # Display the chatbot's response
             st.write("Chatbot Response:")
