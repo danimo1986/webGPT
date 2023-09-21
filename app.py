@@ -1,8 +1,7 @@
 import os
 import streamlit as st
 from langchain.llms import OpenAI
-from langchain.agents import load_tools, initialize_agent, AgentType, Tool
-from langchain.memory import ConversationBufferMemory
+from langchain.agents import initialize_agent, AgentType, Tool
 from langchain.tools import DuckDuckGoSearchTool
 
 # Install required packages
@@ -41,13 +40,10 @@ def main():
         )
     ]
 
-    memory = ConversationBufferMemory(memory_key="chat_history", return_messages=True)
-
     agent = initialize_agent(
         tools=tools,
         llm=llm,
         agent=AgentType.CONVERSATIONAL_REACT_DESCRIPTION,
-        memory=memory,
         verbose=True
     )
 
@@ -56,16 +52,8 @@ def main():
 
     if st.button("Submit"):
         if user_input.strip() != "":
-            # Add user input to the conversation history
-            agent.memory.messages.append({"role": "user", "content": user_input})
-
             # Get the response from the chatbot
-            response = agent.generate_output()
-
-            # Display the chat history
-            st.write("Chat History:")
-            for message in agent.memory.get_memory()["messages"]:
-                st.write(f"{message['role']}: {message['content']}")
+            response = agent.generate_output(user_input)
 
             # Display the chatbot's response
             st.write("Chatbot Response:")
