@@ -57,7 +57,7 @@ def main():
     if st.button("Submit"):
         if user_input.strip() != "":
             # Add user input to the conversation history
-            agent.memory.add_message("user", user_input)
+            agent.memory.messages.append({"role": "user", "content": user_input})
 
             # Get the response from the chatbot
             response = agent.generate_output()
