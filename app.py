@@ -53,7 +53,7 @@ def main():
     if st.button("Submit"):
         if user_input.strip() != "":
             # Get the response from the chatbot
-            response = agent.execute_agent(user_input)
+            response = agent.run(user_input)
 
             # Display the chatbot's response
             st.write("Chatbot Response:")
