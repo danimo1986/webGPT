@@ -53,11 +53,11 @@ def main():
     if st.button("Submit"):
         if user_input.strip() != "":
             # Get the response from the chatbot
-            response = agent.run(user_input)
+            response = agent.run({'input': user_input})
 
             # Display the chatbot's response
             st.write("Chatbot Response:")
-            st.write(f"Chatbot: {response}")
+            st.write(f"Chatbot: {response['output']}")
 
 if __name__ == "__main__":
     main()
