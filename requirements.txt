@@ -1,5 +1,6 @@
 langchain==0.0.149
 duckduckgo-search==3.8.3
+openai
 streamlit
 pandas
 numpy
